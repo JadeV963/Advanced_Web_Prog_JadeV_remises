@@ -46,10 +46,33 @@ class StudentRecord:
         self.gpa = value
 
 class CourseSection:
-    def __init__(self, title, capacity, enrolled = 0):
+    def __init__(self, title, capacity, waitlist = 0, enrolled = 0):
         self.title = title
         self.__capacity = capacity
         self.__enrolled = enrolled
+        self.__waitlist = waitlist
+
+    ##WAITLIST properties##
+
+    @property
+    def waitlist(self):
+        return self.__waitlist
+    
+    @waitlist.setter
+    def waitlist(self, value):
+        if value > 0:
+            self.__waitlist = value
+        else:
+            print("cannot be negative")
+
+    def add_to_waitlist(self):
+        self.__waitlist += 1
+
+    def remove_from_waitlist(self):
+        if self.__waitlist > 0:
+           self.__waitlist -= 1
+        else:
+            print("waitlist already emty")
 
     @property
     def capacity(self):
@@ -106,3 +129,13 @@ print(studentrec1.academic_status)
 ##Chalenges##
 ##Chalenge1##
 
+courseSect1.add_to_waitlist()
+courseSect1.add_to_waitlist()
+courseSect1.remove_from_waitlist()
+print(courseSect1.waitlist)
+courseSect1.add_to_waitlist()
+print(courseSect1.waitlist)
+courseSect1.remove_from_waitlist()
+courseSect1.remove_from_waitlist()
+courseSect1.remove_from_waitlist()
+print(courseSect1.waitlist)
