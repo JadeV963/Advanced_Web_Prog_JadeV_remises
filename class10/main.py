@@ -1,8 +1,8 @@
 class StudentRecord:
     def __init__(self, name, gpa, credits):
         self.name = name
-        self.__gpa = gpa
-        self.__credits = credits
+        self.gpa = gpa
+        self.credits = credits
 
     @property
     def gpa(self):
@@ -65,17 +65,29 @@ class CourseSection:
         else:
             print(f"must be between 0 and  capacity")
             
-def register_student(self):
-    if self.__enrolled < self.__capacity:
-        self.__enrolled += 1
-    else:
-        print(f"Course is full")
+    def register_student(self):
+        if self.__enrolled < self.__capacity:
+            self.__enrolled += 1
+        else:
+            print(f"Course is full")
 
-def drop_student(self):
-    if self.__enrolled > 0:
-        self.__enrolled -=1
-    else:
-        print("there are not enough student to do that")
+    def drop_student(self):
+        if self.__enrolled > 0:
+            self.__enrolled -= 1
+        else:
+            print("there are not enough student to do that")
 
-def display_info(self):
-    print(f"the course {self.title}, can have {self.capacity}, and have now {self.enrolled} enrolled students")
+    def display_info(self):
+        print(f"the course {self.title}, can have {self.capacity}, and have now {self.enrolled} enrolled students")
+
+
+studentrec1 = StudentRecord("John", 3.2, 7)
+courseSect1 = CourseSection("Webdev", 30, 7)
+
+studentrec1.display_info()
+courseSect1.register_student()
+courseSect1.display_info()
+studentrec1.add_credits(3)
+studentrec1.display_info()
+
+studentrec1 = StudentRecord("John", 6, 7)
