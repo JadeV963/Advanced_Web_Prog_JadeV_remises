@@ -10,7 +10,7 @@ class StudentRecord:
 
     @gpa.setter
     def gpa(self, value):
-        if value >= 0.0 and value < 4.0:
+        if value >= 0.0 and value <= 4.0:
             self.__gpa = value
         else:
             print("must be between 0 and 4")
@@ -25,6 +25,15 @@ class StudentRecord:
             self.__credits = value
         else:
             print(f"must be more than 0")
+
+    @property
+    def academic_status(self):
+        if self.__gpa >= 3.5:
+            return "Honours"
+        if self.__gpa >= 2.0:
+            return"Good standing" 
+        else:
+            return"At risk"
 
     def display_info(self):
         print(f"Student infos are: {self.name}, {self.__gpa}, {self.__credits}")
@@ -90,4 +99,10 @@ courseSect1.display_info()
 studentrec1.add_credits(3)
 studentrec1.display_info()
 
-studentrec1 = StudentRecord("John", 6, 7)
+studentrec1 = StudentRecord("John", 3.2, 7)
+
+print(studentrec1.academic_status)
+
+##Chalenges##
+##Chalenge1##
+
