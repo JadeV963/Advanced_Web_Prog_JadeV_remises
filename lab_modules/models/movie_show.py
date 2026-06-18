@@ -8,4 +8,3 @@ class MovieShow:
 
     def display_info(self):
         print(f"{self.title} | Capacity: {self.capacity} | Status: {self.status.value}")
-
