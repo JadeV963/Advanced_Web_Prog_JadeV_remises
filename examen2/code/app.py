@@ -81,22 +81,23 @@ def index():
 
 @app.route(
     "/albums/add",
-    methods=["GET"]
+    methods=["GET","POST"]
 )
 def add_album():
     if request.method == "POST":
+        
         album = Album(
-            title=request.form["album_name"],
+            title=request.form["title"],
             artist=request.form["artist"],
             genre=request.form["genre"],
-            year=request.form["year"],
-            stock=request.form["stock"]
+            year=int(request.form["year"]),
+            stock=int(request.form["stock"])
         )
-
+        db.session.add(album)
         db.session.commit()
 
         return redirect(
-            url_for("albums")
+            url_for("index")
         )
 
     return render_template(

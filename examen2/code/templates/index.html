@@ -21,7 +21,7 @@ block content %}
   <a href="{{ url_for('add_album') }}"> Add an album </a>
 </p>
 
-{% if album %}
+{% if albums %}
 
 <div class="album-grid">
   {% for item in albums %}
@@ -52,13 +52,13 @@ block content %}
     <p>
       <strong>Availability:</strong>
 
-      {% if item.in_stock() %} In stock {% else %} Sold out {% endif %}
+      {% if item.in_stock %} In stock {% else %} Sold out {% endif %}
     </p>
 
     <a
       href="{{ url_for(
                         'edit_album',
-                        id=item.id
+                        album_id=item.id
                     ) }}"
     >
       Edit
