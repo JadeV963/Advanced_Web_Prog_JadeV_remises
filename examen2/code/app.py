@@ -116,18 +116,19 @@ def edit_album(album_id):
         album.title = request.form["title"]
         album.artist = request.form["artist"]
         album.genre = request.form["genre"]
-        album.year = request.form["year"]
-        album.stock = request.form["amount"]
+        album.year = int(request.form["year"])
+        album.stock = int(request.form["stock"])
+     
+        db.session.commit()
 
         return redirect(
             url_for(
-                "edit_album",
-                id=album.id
+                "index"
             )
         )
 
     return render_template(
-        "add_album.html",
+        "edit_album.html",
         album=album
     )
 

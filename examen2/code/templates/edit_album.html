@@ -17,7 +17,7 @@ content %}
       id="title"
       name="title"
       type="text"
-      value="{{ album.name }}"
+      value="{{ album.title }}"
       required
     />
   </p>
@@ -29,7 +29,7 @@ content %}
       id="artist"
       name="artist"
       type="text"
-      value="{{ album.band }}"
+      value="{{ album.artist }}"
       required
     />
   </p>
@@ -63,7 +63,7 @@ content %}
 
     <input
       id="stock"
-      name="quantity"
+      name="stock"
       type="number"
       min="0"
       value="{{ album.stock }}"
