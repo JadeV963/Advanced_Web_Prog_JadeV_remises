@@ -11,10 +11,10 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-app.config["SQLALCHEMY_DATABASE_URL"] = "sqlite:///albums.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///albums.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-db = SQLAlchemy
+db = SQLAlchemy(app)
 
 
 class Album(db.Model):
@@ -57,7 +57,7 @@ class Album(db.Model):
         return self.id
 
 
-with app.app_context:
+with app.app_context():
     db.create_all()
 
 
@@ -74,7 +74,7 @@ def index():
 
     return render_template(
         "index.html",
-        album=albums,
+        albums=albums,
         selected_genre=genre
     )
 
@@ -146,4 +146,4 @@ def delete_album(album_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
