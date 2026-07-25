@@ -38,6 +38,13 @@ with app.app_context():
 def load_user(user_id):
     return db.session.get(User, int(user_id))
 
+#### Home route - redirects to the appropriate page
+@app.route("/")
+def home():
+    if current_user.is_authenticated:
+        return redirect(url_for("books"))
+    return redirect(url_for("login"))
+
 ### Registration route
 @app.route("/register", methods=["GET", "POST"])
 def register():

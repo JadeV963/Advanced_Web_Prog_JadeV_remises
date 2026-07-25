@@ -1,0 +1,32 @@
+<style>
+  nav a {
+    margin-right: 1.5rem;
+  }
+  nav form {
+    display: inline;
+  }
+  nav button {
+    margin-right: 1.5rem;
+  }
+  body {
+    font-family: system-ui, sans-serif;
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  header {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .flash-message {
+    list-style: none;
+    padding: 0;
+  }
+  .flash-success {
+    color: #1a7f37;
+  }
+  .flash-error {
+    color: #cf222e;
+  }
+</style>
