@@ -10,7 +10,7 @@ from flask_login import(
 )
 
 
-from models import db, User
+from models import db, User, Book, READING_STATUSES
 
 app= Flask(__name__)
 
@@ -116,8 +116,7 @@ def logout():
 
     return redirect(url_for("login"))
 
-if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+
 
 ### View all books belonging to the current user
 
@@ -126,7 +125,7 @@ if __name__ == "__main__":
 def books():
     user_books = Book.query.filter_by(user_id=current_user.id).all()
 
-    return render_template("books.html" books=user_books)
+    return render_template("books.html", books=user_books)
 
 
 ### Add a new book
@@ -168,7 +167,7 @@ def new_book():
                 author=author,
                 note=note,
                 status=status,
-                statuses = READING_STATUS,
+                statuses = READING_STATUSES,
             )
 
         book = Book(
@@ -190,7 +189,7 @@ def new_book():
 
 
 #### Edit an existing book (title,,  author, note, status)
-@app.route("/books/<int:nook_id>/edit", methods=["GET", "POST"])
+@app.route("/books/<int:book_id>/edit", methods=["GET", "POST"])
 @login_required
 def edit_book(book_id):
     book = Book.query.get_or_404(book_id)
@@ -203,7 +202,7 @@ def edit_book(book_id):
     if request.method == "POST":
         title = request.form["title"].strip()
         author = request.form["author"].strip()
-        note = request.form["note"].strip()
+        note = request.form.get("note", "").strip()
         status = request.form["status"].strip()
 
         errors = []
@@ -218,7 +217,7 @@ def edit_book(book_id):
             errors.append("Author is required.")
 
         if len(author) > 100:
-            errors.append("Note may contain at most 100 characters.")
+            errors.append("Author may contain at most 100 characters.")
 
         if status not in READING_STATUSES:
             errors.append("Invalid reading status.")
@@ -244,3 +243,23 @@ def edit_book(book_id):
 
 
 ### DElete a book
+@app.route("/books/<int:book_id>/delete", methods=["POST"])
+@login_required
+def delete_book(book_id):
+    book = Book.query.get_or_404(book_id)
+
+    #A user may only delete their own books.
+    if book.user_id != current_user.id:
+        flash("You do not have the permission to delete that book.", "error")
+        return redirect(url_for("books"))
+    
+    db.session.delete(book)
+    db.session.commit()
+
+    flash("Book deleted.", "success")
+
+    return redirect(url_for("books"))
+
+
+if __name__ == "__main__":
+    app.run(debug=True, port=5001)
