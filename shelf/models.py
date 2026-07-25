@@ -1,5 +1,3 @@
-from datetime import datetime, timezone
-
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -48,8 +46,7 @@ class Book(db.Model):
     note = db.Column(db.String(1000), nullable=True)
 
     status = db.Column(db.String(20), nullable=False, default=STATUS_WANT_TO_READ)
-
-    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    
 
     #Foreign key linking each book to the user who owns it.
 
