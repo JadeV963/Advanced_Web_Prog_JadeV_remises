@@ -1,0 +1,36 @@
+{%  extends "base.html" %}
+{% block title %} Add a Book{% endblock %}
+{% block content%}
+
+<h2>Add a Book</h2>
+
+<form method="POST" action="{{ url_for('new_book') }}">
+    <p>
+        <label for="title">Title</label>
+        <input id="title" name="title" type="text" value="{{ title or '' }}" required maxlength="100" />
+    </p>
+    <p>
+        <label for="author">Author</label>
+        <input id="author" name="author" type="text" value="{{ author or '' }}" required maxlength="100" />
+    </p>
+
+    <p>
+        <label for="note">Note</label>
+        <textarea id="note" name="note" maxlength="1000">{{ note or '' }}</textarea>
+    </p>
+
+    <p>
+        <label for="status">Reading status</label>
+        <select name="status" id="status" required>
+            {% for option in statuses %}
+                <option value="{{ option }}" {% if option == status %}selected{% endif %}>{{ option }}</option>
+            {% endfor %}
+        </select>
+    </p>
+
+    <button type="submit">Add book</button>
+</form>
+
+<p><a href="{{ url_for('books') }}">Cancel</a></p>
+
+{% endblock %}
